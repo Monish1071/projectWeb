@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VIT Student & Admin Portal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body, html { height: 100%; font-family: 'Inter', sans-serif; background-color: #f1f5f9; }
+
+    .logo-top {
+      width: 100%;
+      height: 140px;
+      background: rgba(255, 255, 255, 0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      z-index: 10;
+    }
+
+    .logo-top img {
+      max-height: 120px;
+      width: auto;
+      opacity: 0.95;
+    }
+
+    .main-content {
+      display: flex;
+      height: calc(100vh - 140px);
+      width: 100%;
+    }
+
+    .left-panel {
+      flex: 1.4;
+      background: linear-gradient(120deg, #1e3a8a, #3b82f6);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 60px;
+    }
+
+    .left-panel h1 {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 24px;
+      line-height: 1.3;
+    }
+
+    .left-panel ul {
+      font-size: 16px;
+      line-height: 2;
+      padding-left: 20px;
+      list-style: none;
+    }
+
+    .left-panel ul li::before {
+      content: "✔️ ";
+      margin-right: 8px;
+    }
+
+    .right-panel {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #f8fafc;
+    }
+
+    .login-box {
+      background: linear-gradient(to bottom right, #ffffff, #f0f4f8);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(30, 58, 138, 0.2), 0 0 10px rgba(59, 130, 246, 0.2);
+      width: 100%;
+      max-width: 400px;
+      animation: pop-in 0.6s ease;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .login-box:hover {
+      box-shadow: 0 12px 50px rgba(30, 64, 175, 0.3), 0 0 15px rgba(96, 165, 250, 0.3);
+    }
+
+    @keyframes pop-in {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 20px;
+    }
+
+    .tab-button {
+      flex: 1;
+      background: none;
+      border: none;
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      color: #475569;
+      border-bottom: 2px solid transparent;
+    }
+
+    .tab-button.active {
+      border-bottom: 2px solid #1e3a8a;
+      color: #1e3a8a;
+      font-weight: 600;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    label {
+      font-size: 14px;
+      color: #334155;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      font-size: 15px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      transition: all 0.2s ease;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #1e3a8a;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    }
+
+    .login-btn {
+      width: 100%;
+      background-color: #1e3a8a;
+      color: #fff;
+      padding: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    .login-btn:hover {
+      background-color: #2563eb;
+      transform: translateY(-2px);
+    }
+
+    .error {
+      color: #dc2626;
+      font-size: 14px;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    @media (max-width: 768px) {
+      .main-content {
+        flex-direction: column;
+      }
+
+      .left-panel, .right-panel {
+        width: 100%;
+        flex: unset;
+        align-items: center;
+        padding: 20px;
+      }
+
+      .left-panel h1 {
+        font-size: 26px;
+        text-align: center;
+      }
+
+      .left-panel ul {
+        font-size: 14px;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="logo-top">
+    <img src="vit.png" alt="VIT Logo">
+  </div>
+
+  <div class="main-content">
+    <div class="left-panel">
+      <h1>Welcome to VIT University</h1>
+      <ul>
+        <li>Ranked among top universities in India</li>
+        <li>Global research collaborations</li>
+        <li>State-of-the-art infrastructure</li>
+        <li>Vibrant student community</li>
+        <li>100% placement assistance</li>
+      </ul>
+    </div>
+
+    <div class="right-panel">
+      <div class="login-box">
+        <div class="tabs">
+          <button class="tab-button active" onclick="switchTab('student')">Student</button>
+          <button class="tab-button" onclick="switchTab('admin')">Admin</button>
+        </div>
+
+        <form id="student-form" onsubmit="return studentLogin()">
+          <div class="form-group">
+            <label for="student-username">Username</label>
+            <input type="text" id="student-username" required />
+          </div>
+          <div class="form-group">
+            <label for="student-password">Password</label>
+            <input type="password" id="student-password" required />
+          </div>
+          <button class="login-btn" type="submit">Login</button>
+          <div class="error" id="student-error"></div>
+        </form>
+
+        <form id="admin-form" style="display: none;" onsubmit="return adminLogin()">
+          <div class="form-group">
+            <label for="admin-username">Admin Username</label>
+            <input type="text" id="admin-username" required />
+          </div>
+          <div class="form-group">
+            <label for="admin-password">Password</label>
+            <input type="password" id="admin-password" required />
+          </div>
+          <button class="login-btn" type="submit">Login</button>
+          <div class="error" id="admin-error"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function switchTab(role) {
+      document.getElementById('student-form').style.display = role === 'student' ? 'block' : 'none';
+      document.getElementById('admin-form').style.display = role === 'admin' ? 'block' : 'none';
+      const buttons = document.querySelectorAll('.tab-button');
+      buttons.forEach(btn => btn.classList.remove('active'));
+      if (role === 'student') buttons[0].classList.add('active');
+      else buttons[1].classList.add('active');
+    }
+
+    function studentLogin() {
+      const username = document.getElementById('student-username').value;
+      const password = document.getElementById('student-password').value;
+      const error = document.getElementById('student-error');
+      const validStudents = {
+        'kartheek': '1234',
+        'Monish': '789',
+        'pranav': '456'
+      };
+      if (validStudents[username] === password) {
+        window.location.href = 'index.html';
+        return false;
+      } else {
+        error.textContent = 'Invalid student credentials.';
+        return false;
+      }
+    }
+
+    function adminLogin() {
+      const username = document.getElementById('admin-username').value;
+      const password = document.getElementById('admin-password').value;
+      const error = document.getElementById('admin-error');
+      if (username === 'bhuvaneswari m' && password === 'weblab') {
+        window.location.href = 'reports.html';
+        return false;
+      } else {
+        error.textContent = 'Invalid admin credentials.';
+        return false;
+      }
+    }
+  </script>
+</body>
+</html>
